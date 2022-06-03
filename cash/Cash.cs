@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using cash;
 
 namespace cash
 {
@@ -24,45 +19,113 @@ namespace cash
             NotaGavC = notaGavC;
         }
 
-        public void Sacar(int saque)
+        public void Suprir()
         {
+            Console.WriteLine("Gaveta A possui " + ValorGavA + " e está configurada com notas de " + NotaGavA + ". Qual valor você deseja suprir nesta gaveta?");
+            ValorGavA += int.Parse(Console.ReadLine());
+            Console.WriteLine("Suprimento efetuado com sucesso, agora a gaveta A possui " + ValorGavA + ".");
 
-            int incremento = 0;
+            Console.WriteLine("Gaveta B possui " + ValorGavB + " e está configurada com notas de " + NotaGavB + ". Qual valor você deseja suprir nesta gaveta?");
+            ValorGavB += int.Parse(Console.ReadLine());
+            Console.WriteLine("Suprimento efetuado com sucesso, agora a gaveta B possui " + ValorGavB + ".");
 
-
-            while (incremento < saque)
-            {
-                incremento += this.NotaGavA;
-                this.ValorGavA -= this.NotaGavA;
-
-                if ((incremento + this.NotaGavA) > saque)
-                {
-                    while (incremento < saque)
-                    {
-                        incremento += NotaGavB;
-                        this.ValorGavB -= this.NotaGavB;
-
-                        if ((incremento + NotaGavB) > saque)
-                        {
-                            while (incremento < saque)
-                            {
-                                incremento += NotaGavC;
-                                this.ValorGavC -= this.NotaGavC;
-                            }
-                        }
-                    }
-
-                }
-
-                if (incremento == saque)
-                {
-                    Console.WriteLine("O saque foi efetuado com sucesso, no valor de " + incremento);
-                    Console.WriteLine("As gavetas A, B e C agora tem, respectivamente, " + ValorGavA + ", " + ValorGavB + " e " + ValorGavC);
-                }
-
-            }
+            Console.WriteLine("Gaveta C possui " + ValorGavC + " e está configurada com notas de " + NotaGavC + ". Qual valor você deseja suprir nesta gaveta?");
+            ValorGavC += int.Parse(Console.ReadLine());
+            Console.WriteLine("Suprimento efetuado com sucesso, agora a gaveta C possui " + ValorGavC + ".");
         }
 
+        public void Sacar(int valor)
+        {
+            int incremento = valor;
+
+            if (valor <= 0)
+            {
+                throw new ArgumentException("Valor inválido para saque.");
+            }
+
+            if (valor % NotaGavC != 0)
+            {
+                throw new ArgumentException("Composição de notas não disponível. Este equipamento possui notas de " + NotaGavA + ", " + NotaGavB + " e " + NotaGavC + ".");
+            }
+
+            if (valor > (ValorGavA + ValorGavB + ValorGavC))
+            {
+                throw new ArgumentException("Equipamento sem dinheiro suficiente para o saque.");
+            }
+
+
+            while (incremento != 0)
+            {
+
+                while (((incremento - NotaGavA) >= 0) && (ValorGavA >= NotaGavA))
+                {
+                    ValorGavA -= NotaGavA;
+                    incremento -= NotaGavA;
+                }
+
+                while (((incremento - NotaGavB) >= 0) && (ValorGavB >= NotaGavB))
+                {
+                    ValorGavB -= NotaGavB;
+                    incremento -= NotaGavB;
+                }
+
+                while (((incremento - NotaGavC) >= 0) && (ValorGavC >= NotaGavC))
+                {
+                    ValorGavC -= NotaGavC;
+                    incremento -= NotaGavC;
+                }
+
+                if (incremento == 0)
+                {
+                    Console.WriteLine("O saque foi efetuado com sucesso, no valor de " + valor);
+                    Console.WriteLine("As gavetas A, B e C agora tem, respectivamente: " + ValorGavA + ", " + ValorGavB + " e " + ValorGavC);
+                }
+            }
+
+
+
+
+            //while (incremento < valor)
+            //{
+
+            //        incremento += NotaGavA;
+            //        ValorGavA -= NotaGavA;
+
+            //        if ((incremento + NotaGavA) > valor)
+            //        {
+            //            while (incremento < valor)
+            //            {
+            //                incremento += NotaGavB;
+            //                ValorGavB -= NotaGavB;
+
+            //                if ((incremento + NotaGavB) > valor)
+            //                {
+            //                    while (incremento < valor)
+            //                    {
+            //                        incremento += NotaGavC;
+            //                        ValorGavC -= NotaGavC;
+            //                    }
+            //                }
+            //            }
+            //        }
+
+
+            //    if (incremento == valor)
+            //    {
+            //        Console.WriteLine("O saque foi efetuado com sucesso, no valor de " + incremento);
+            //        Console.WriteLine("As gavetas A, B e C agora tem, respectivamente: " + ValorGavA + ", " + ValorGavB + " e " + ValorGavC);
+            //    }
+
+            //}
+
+
+
+        }
+
+        public void VerificaNotas(int valor)
+        {
+            Console.WriteLine("");
+        }
 
     }
 }

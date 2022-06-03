@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace cash
 {
@@ -17,12 +13,30 @@ namespace cash
             c2001.ValorGavB = 1000;
             c2001.ValorGavC = 1000;
 
-            
 
-            c2001.Sacar(145);
+            Sacar(c2001);
+
+
+            // c2001.Suprir();
 
             Console.ReadLine();
         }
-     
+
+        public static void Sacar(Cash cash)
+        {
+
+            try
+            {
+                cash.Sacar(1200);
+            }
+
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+
+        }
+
     }
 }

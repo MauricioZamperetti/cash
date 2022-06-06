@@ -9,15 +9,16 @@ namespace cash
 
             Cash c2001 = new Cash(100, 20, 5);
 
-            c2001.ValorGavA = 1000;
-            c2001.ValorGavB = 1000;
-            c2001.ValorGavC = 1000;
+            //c2001.ValorGavA = 1000;
+            //c2001.ValorGavB = 1000;
+           // c2001.ValorGavC = 1000;
 
+            Suprir(c2001);
 
             Sacar(c2001);
 
 
-            // c2001.Suprir();
+            
 
             Console.ReadLine();
         }
@@ -28,6 +29,22 @@ namespace cash
             try
             {
                 cash.Sacar(1200);
+            }
+
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+
+        }
+
+        public static void Suprir(Cash cash)
+        {
+
+            try
+            {
+                cash.Suprir();
             }
 
             catch (Exception ex)

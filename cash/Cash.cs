@@ -22,15 +22,21 @@ namespace cash
         public void Suprir()
         {
             Console.WriteLine("Gaveta A possui " + ValorGavA + " e está configurada com notas de " + NotaGavA + ". Qual valor você deseja suprir nesta gaveta?");
-            ValorGavA += int.Parse(Console.ReadLine());
-            Console.WriteLine("Suprimento efetuado com sucesso, agora a gaveta A possui " + ValorGavA + ".");
-
+            int suprimento = int.Parse(Console.ReadLine());
+            VerificaNotas(suprimento, NotaGavA);
+            ValorGavA += suprimento;
+            Console.WriteLine("Suprimento efetuado com sucesso, agora a gaveta A possui " + ValorGavA + "."); 
+            
             Console.WriteLine("Gaveta B possui " + ValorGavB + " e está configurada com notas de " + NotaGavB + ". Qual valor você deseja suprir nesta gaveta?");
-            ValorGavB += int.Parse(Console.ReadLine());
+            suprimento = int.Parse(Console.ReadLine());
+            VerificaNotas(suprimento, NotaGavB);
+            ValorGavB += suprimento;
             Console.WriteLine("Suprimento efetuado com sucesso, agora a gaveta B possui " + ValorGavB + ".");
 
             Console.WriteLine("Gaveta C possui " + ValorGavC + " e está configurada com notas de " + NotaGavC + ". Qual valor você deseja suprir nesta gaveta?");
-            ValorGavC += int.Parse(Console.ReadLine());
+            suprimento = int.Parse(Console.ReadLine());
+            VerificaNotas(suprimento, NotaGavC);
+            ValorGavC += suprimento;
             Console.WriteLine("Suprimento efetuado com sucesso, agora a gaveta C possui " + ValorGavC + ".");
         }
 
@@ -122,9 +128,18 @@ namespace cash
 
         }
 
-        public void VerificaNotas(int valor)
+        public void VerificaNotas(int suprimento, int nota)
         {
-            Console.WriteLine("");
+            if (suprimento < 0)
+            {
+                throw new ArgumentException("Valor inválido para suprimento.");
+
+            }
+
+            if (suprimento % nota != 0)
+            {
+                throw new ArgumentException("Valor inválido para gaveta com notas de " + nota);
+            }
         }
 
     }
